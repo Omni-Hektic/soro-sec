@@ -1,0 +1,39 @@
+name: 'Soro-Sec Soroban Contract Scanner'
+description: 'Automated static security analysis and vulnerability linting for Soroban smart contracts on Stellar'
+author: 'Omni-Hektic'
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  path:
+    description: 'Path to scan (defaults to repository root)'
+    required: false
+    default: '.'
+  format:
+    description: 'Output format (terminal, json, sarif, markdown)'
+    required: false
+    default: 'sarif'
+  output:
+    description: 'Output file path (e.g. soro-sec-results.sarif)'
+    required: false
+    default: 'soro-sec-results.sarif'
+  fail-on:
+    description: 'Fail step if findings meet or exceed severity threshold (CRITICAL, HIGH, MEDIUM, LOW)'
+    required: false
+    default: 'HIGH'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Rust toolchain
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Run Soro-Sec
+      shell: bash
+      run: |
+        cargo run --manifest-path "${{ github.action_path }}/Cargo.toml" -- \
+          "${{ inputs.path }}" \
+          --format "${{ inputs.format }}" \
+          --output "${{ inputs.output }}" \
+          --fail-on "${{ inputs.fail-on }}"

@@ -1,0 +1,26 @@
+[package]
+name = "soro-sec"
+version = "0.1.0"
+edition = "2021"
+authors = ["Omni-Hektic <admin@digital-pathways.net>"]
+description = "Static security analysis, vulnerability linter, and audit assistant for Soroban smart contracts on Stellar."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/Omni-Hektic/soro-sec"
+keywords = ["stellar", "soroban", "security", "linter", "smart-contracts"]
+categories = ["development-tools", "command-line-utilities"]
+
+[dependencies]
+clap = { version = "4.5", features = ["derive", "cargo", "env"] }
+syn = { version = "2.0", features = ["full", "visit", "extra-traits"] }
+quote = "1.0"
+proc-macro2 = { version = "1.0", features = ["span-locations"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+colored = "2.1"
+walkdir = "2.5"
+regex = "1.10"
+anyhow = "1.0"
+thiserror = "1.0"
+
+[dev-dependencies]
+tempfile = "3.10"
